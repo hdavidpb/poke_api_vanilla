@@ -1,5 +1,11 @@
 const pokemonDataContainer = document.getElementById("list_data_container");
-const cardContainer = document.getElementsByClassName("card-container");
+const cardContainer = document.getElementsByClassName("front-front");
+let audio = document.getElementById("pokeaudio");
+
+const playAudio = () => {
+  audio.play();
+};
+
 const getAllPokemons = async () => {
   try {
     const data = await fetch(
@@ -16,10 +22,6 @@ const getAllPokemons = async () => {
 
 getAllPokemons();
 
-const handleGetId = (element) => {
-  console.log(element);
-};
-
 const printDataPokemonsName = async (data) => {
   let pokemonesContainer = "";
 
@@ -28,22 +30,28 @@ const printDataPokemonsName = async (data) => {
      <h1 class="list_item" id=${element.name} >${element.name}</h1>
      `;
   }
+
   pokemonDataContainer.innerHTML = pokemonesContainer;
+  let select = "";
+  const listItem = document.querySelectorAll(".list_item");
 
-  if (pokemonDataContainer !== "") {
-    const listItem = document.querySelectorAll(".list_item");
-
-    listItem.forEach((item) => {
-      item.addEventListener("click", () => {
-        console.log("HOLA ===> ", item.id);
-        getPokemonDetails(item.id);
+  listItem.forEach((item) => {
+    item.addEventListener("click", () => {
+      select = item;
+      item.classList.add("selected");
+      playAudio();
+      listItem.forEach((item) => {
+        if (select !== item) {
+          item.classList.remove("selected");
+        }
       });
+
+      getPokemonDetails(item.textContent);
     });
-  }
+  });
 };
 
 const getPokemonDetails = async (pokeName) => {
-  console.log("AHHHHH");
   try {
     const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
 

@@ -12,6 +12,11 @@
     />
     <link rel="stylesheet" href="./style.css" />
     <title>Poke-API</title>
+    <audio id="pokeaudio" autoplay loop>
+      <source src="./assets/audiopoke.mp3" type="audio/mpeg" />
+      <source src="./assets/audiopoke.ogv" type="audio/ogg" />
+      <h1></h1>
+    </audio>
   </head>
   <body>
     <div class="container-app">
@@ -23,9 +28,15 @@
       <div class="pokemon-container">
         <div class="list-container" id="list_data_container"></div>
 
-        <div class="card-container">jhoan es cagasten</div>
+        <div class="card-container">
+          <div class="card-item-container">
+            <div class="front-front"></div>
+            <div class="card-back"></div>
+          </div>
+        </div>
       </div>
     </div>
+
     <script src="./app.js"></script>
   </body>
 </html>
