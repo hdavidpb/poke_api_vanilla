@@ -25,16 +25,32 @@ const printDataPokemonsName = async (data) => {
 
   for (const element of data) {
     pokemonesContainer += `
-     <h1 class="list_item" id=${element.url} >${element.name}</h1>
+     <h1 class="list_item" id=${element.name} >${element.name}</h1>
      `;
   }
   pokemonDataContainer.innerHTML = pokemonesContainer;
 
-  const listItem = document.querySelectorAll(".list_item");
-  console.log(listItem);
-  listItem.forEach((item) => {
-    item.addEventListener("click", () => {
-      console.log("HOLA ===> ", item);
+  if (pokemonDataContainer !== "") {
+    const listItem = document.querySelectorAll(".list_item");
+
+    listItem.forEach((item) => {
+      item.addEventListener("click", () => {
+        console.log("HOLA ===> ", item.id);
+        getPokemonDetails(item.id);
+      });
     });
-  });
+  }
+};
+
+const getPokemonDetails = async (pokeName) => {
+  console.log("AHHHHH");
+  try {
+    const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
+
+    const response = await data.json();
+    console.log(response);
+    console.log(response.sprites.other.dream_world.front_default);
+  } catch (error) {
+    console.log(error);
+  }
 };
