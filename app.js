@@ -1,5 +1,5 @@
 const pokemonDataContainer = document.getElementById("list_data_container");
-
+const cardContainer = document.getElementsByClassName("card-container");
 const getAllPokemons = async () => {
   try {
     const data = await fetch(
@@ -50,7 +50,13 @@ const getPokemonDetails = async (pokeName) => {
     const response = await data.json();
     console.log(response);
     console.log(response.sprites.other.dream_world.front_default);
+    printCardContainer(response.sprites.other.dream_world.front_default);
   } catch (error) {
     console.log(error);
   }
+};
+
+const printCardContainer = (data) => {
+  cardContainer[0].style.background = `url(${data}) no-repeat center center/cover`;
+  console.log(cardContainer);
 };
